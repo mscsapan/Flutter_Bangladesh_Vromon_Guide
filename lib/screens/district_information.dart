@@ -1,3 +1,5 @@
+import 'package:bd_vromon/views/custom_card.dart';
+
 import '../screens/place_details.dart';
 import 'package:flutter/material.dart';
 
@@ -36,34 +38,21 @@ class DistrictInformation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(title: Text('$disTitle $title')),
-      body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 2),
-        child: GridView.builder(
-          itemCount: district[i].districtInfo![ii].viewablePlaces!.length,
-          itemBuilder: (context, position) {
-            var result =
-                district[i].districtInfo![ii].viewablePlaces![position];
-            return Card(
-              elevation: 5.0,
-              child: ListTile(
-                onTap: () => goToDetailPlaceScreen(
-                    context, position, result.name.toString()),
-                title: Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    result.name.toString(),
-                  ),
-                ),
-              ),
-            );
-          },
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 2,
-          ),
-        ),
+      body: ListView.builder(
+        shrinkWrap: true,
+        physics: const ClampingScrollPhysics(),
+        itemCount: district[i].districtInfo![ii].viewablePlaces!.length,
+        itemBuilder: (context, position) {
+          var result = district[i].districtInfo![ii].viewablePlaces![position];
+          return CustomCard(
+            image: '${result.image}',
+            name: '${result.name}',
+            description: '${result.description}',
+          );
+        },
       ),
     );
   }
