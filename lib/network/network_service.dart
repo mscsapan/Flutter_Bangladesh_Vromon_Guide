@@ -4,7 +4,7 @@ import '../model/info_model.dart';
 import 'package:http/http.dart' as http;
 
 class NetworkService {
-  final String url = 'https://bd-vromon.herokuapp.com/travel';
+  final String url = 'https://bd-vromon.herokuapp.com/travel/data';
 
   Future<List<InformationModel>> getAllInformation() async {
     http.Response response = await http.get(Uri.parse(url));

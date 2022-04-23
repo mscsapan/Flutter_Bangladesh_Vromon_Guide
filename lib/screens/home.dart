@@ -11,6 +11,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[300],
       appBar: AppBar(
         title: BlocBuilder<CountryBloc, CountryState>(
           builder: (context, state) {
@@ -19,7 +20,7 @@ class Home extends StatelessWidget {
             } else if (state is LoadingState) {
               return const Text('Loading...');
             }
-            return const Text('All Country Information');
+            return const Text('বিভাগ সমূহ');
           },
         ),
         centerTitle: true,

@@ -37,6 +37,9 @@ dependencies:
   http: ^0.13.4
   flutter_bloc: ^8.0.1
   equatable: ^2.0.3
+  flutter_spinkit: ^5.1.0
+  google_fonts: ^2.3.1
+  transparent_image: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -88,5 +91,21 @@ flutter:
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
   #
-  # For details regarding fonts from package dependencies,
+  fonts:
+    - family: ExtraLight
+      fonts:
+        - asset: fonts/ExtraLight.ttf
+    - family: Regular
+      fonts:
+        - asset: fonts/Regular.ttf
+    - family: Thin
+      fonts:
+        - asset: fonts/Thin.ttf
+    - family: BalooDa2-Regular
+      fonts:
+       - asset: fonts/BalooDa2-Regular.ttf
+    - family: Siliguri-Regular
+      fonts:
+        - asset: fonts/Siliguri-Regular.ttf
+    # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

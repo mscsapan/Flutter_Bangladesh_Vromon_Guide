@@ -1,3 +1,4 @@
+import 'package:bd_vromon/screens/details_screen.dart';
 import 'package:bd_vromon/views/custom_card.dart';
 
 import '../screens/place_details.dart';
@@ -38,19 +39,28 @@ class DistrictInformation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(title: Text('$disTitle $title')),
       body: ListView.builder(
         shrinkWrap: true,
-        physics: const ClampingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         itemCount: district[i].districtInfo![ii].viewablePlaces!.length,
         itemBuilder: (context, position) {
           var result = district[i].districtInfo![ii].viewablePlaces![position];
-          return CustomCard(
-            image: '${result.image}',
-            name: '${result.name}',
-            description: '${result.description}',
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DetailScreen(image: '${result.image}'),
+                ),
+              );
+            },
+            child: CustomCard(
+              image: '${result.image}',
+              name: '${result.name}',
+              description: '${result.description}',
+            ),
           );
         },
       ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class CustomCard extends StatelessWidget {
   const CustomCard({
@@ -11,61 +13,76 @@ class CustomCard extends StatelessWidget {
   final String name;
   final String description;
 
-  /*final String image =
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Ahsan_Manzil-Front_View.jpg/1280px-Ahsan_Manzil-Front_View.jpg';
-  final String name = 'আহসান মঞ্জিল';
-  final String des =
-      "ইসলামপুরের কুমারটুলী নামে পরিচিত পুরনো ঢাকার বুড়িগঙ্গা নদীর তীরে বর্তমান ইসলামপুরে আহসান মঞ্জিল অবস্থিত। এটি ব্রিটিশ ভারতের উপাধিপ্রাপ্ত ঢাকার নওয়াব পরিবারের বাসভবন ও সদর কাচারি ছিল। অনবদ্য অলঙ্করন সমৃদ্ধ সুরম্য এ ভবনটি ঢাকার অন্যতম শ্রেষ্ঠ স্থাপত্য নিদর্শন।নওয়াব আব্দুল গনির পিতা খাজা আলিমুল্লাহ ১৮৩০ সালে ফরাসিদের নিকট থেকে এই কুঠিটি ক্রয়পূর্বক সংস্কারের মাধ্যমে নিজ বাসভবনের উপযোগী করেন। পরবর্তীতে নওয়াব আব্দুল গনি ১৮৬৯ সালে এই প্রাসাদটি পুন:নির্মাণ করেন এবং প্রিয় পুত্র খাজা আহসানুল্লাহর নামানুসারে এর নামকরণ করেন আহসান মঞ্জিল।";*/
   @override
   Widget build(BuildContext context) {
     final _size = MediaQuery.of(context).size;
     return Container(
-      height: _size.height * 0.36,
+      height: 320.0,
       width: _size.width,
-      // color: Colors.white.withOpacity(0.8),
       margin: const EdgeInsets.symmetric(vertical: 4.0),
       child: Card(
         elevation: 5.0,
         shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(8.0),
-          topRight: Radius.circular(8.0),
-        )),
-        //color: Colors.white.withOpacity(0.8),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(8.0),
+            topRight: Radius.circular(8.0),
+          ),
+        ),
         margin: const EdgeInsets.symmetric(horizontal: 5.0),
         child: Column(
           children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(8.0),
-                topRight: Radius.circular(8.0),
-              ),
-              child: Image.network(
-                image,
-                height: _size.height * 0.28,
-                width: _size.width,
-                fit: BoxFit.cover,
+            SizedBox(
+              height: 250.0,
+              child: Stack(
+                children: [
+                  const Center(
+                      child: SpinKitThreeBounce(
+                    color: Colors.grey,
+                    size: 20.0,
+                  )),
+                  ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(6.0),
+                        topRight: Radius.circular(6.0)),
+                    child: FadeInImage.memoryNetwork(
+                      placeholder: kTransparentImage,
+                      image: image,
+                      height: 250.0,
+                      width: _size.width,
+                      fit: BoxFit.cover,
+                    ),
+                  )
+                ],
               ),
             ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    name,
-                    style: const TextStyle(
-                        fontSize: 21.0, fontWeight: FontWeight.w600),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Text(
-                    description,
-                    style: const TextStyle(
-                        fontSize: 18.0, fontWeight: FontWeight.w500),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
+            SizedBox(
+              height: 70.0,
+              width: _size.width,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      name,
+                      style: const TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Thin',
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      description,
+                      style: const TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.w500,
+                        fontFamily: 'BalooDa2-Regular',
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
               ),
             )
           ],

@@ -1,7 +1,8 @@
-import '../model/info_model.dart';
 import 'package:flutter/material.dart';
 
+import '../model/info_model.dart';
 import '../screens/all_district_list.dart';
+import 'custom_title_container.dart';
 
 class LoadedInformation extends StatelessWidget {
   const LoadedInformation({Key? key, required this.information})
@@ -21,32 +22,40 @@ class LoadedInformation extends StatelessWidget {
   }
 
   TextStyle titleStyle() {
-    return const TextStyle(fontWeight: FontWeight.w600, fontSize: 22.0);
+    return const TextStyle(
+        fontSize: 28.0, fontWeight: FontWeight.w400, fontFamily: 'Regular');
+  }
+
+  ListTile disName(BuildContext context, int index) {
+    return ListTile(
+      onTap: () => goToNextScreen(
+          context, index, information[index].divisionName.toString()),
+      title: Align(
+        alignment: Alignment.center,
+        child: Text(
+          information[index].divisionName.toString(),
+          style: titleStyle(),
+        ),
+      ),
+    );
   }
 
 // TODO:: This is the FIRST UI Screen
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 10.0),
-      child: GridView.builder(
-        itemCount: information.length,
-        itemBuilder: (context, index) {
-          return Card(
-            elevation: 6.0,
-            child: ListTile(
-                onTap: () => goToNextScreen(
-                    context, index, information[index].divisionName.toString()),
-                title: Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      information[index].divisionName.toString(),
-                      style: titleStyle(),
-                    ))),
-          );
-        },
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, childAspectRatio: 1.5),
+    final _size = MediaQuery.of(context).size;
+    return GridView.builder(
+      itemCount: information.length,
+      padding: const EdgeInsets.only(top: 6.0, bottom: 6.0),
+      itemBuilder: (context, index) {
+        return CustomTitleContainer(
+          child: disName(context, index),
+          width: _size.width / 2.0,
+        );
+      },
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: 1.15,
       ),
     );
   }

@@ -1,3 +1,5 @@
+import 'package:bd_vromon/views/custom_title_container.dart';
+
 import '../screens/district_information.dart';
 
 import '../model/info_model.dart';
@@ -30,7 +32,10 @@ class AllDistrictList extends StatelessWidget {
 
   TextStyle titleStyle() {
     return const TextStyle(
-        fontSize: 20.0, fontWeight: FontWeight.w600, letterSpacing: 1.5);
+      fontSize: 25.0,
+      fontWeight: FontWeight.w400,
+      fontFamily: 'Siliguri-Regular',
+    );
   }
 
 // TODO:: This is the Second UI Screen
@@ -38,27 +43,33 @@ class AllDistrictList extends StatelessWidget {
   final String title = 'বিভাগের জেলা সূমহ';
   @override
   Widget build(BuildContext context) {
+    final _size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(title: Text('$disTitle $title'), centerTitle: true),
+      backgroundColor: Colors.grey[300],
+      appBar: AppBar(
+          title: Text(
+            '$disTitle $title',
+            style: titleStyle().copyWith(fontSize: 20.0),
+          ),
+          centerTitle: true),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 2.5),
         child: GridView.builder(
           itemCount: district[i].districtInfo!.length,
           itemBuilder: (context, index) {
-            return Card(
-              elevation: 5.0,
-              child: ListTile(
-                onTap: () => goToDistrictInformation(context, index,
-                    district[i].districtInfo![index].districtName.toString()),
-                title: Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    district[i].districtInfo![index].districtName.toString(),
-                    style: titleStyle(),
+            return CustomTitleContainer(
+                child: ListTile(
+                  onTap: () => goToDistrictInformation(context, index,
+                      district[i].districtInfo![index].districtName.toString()),
+                  title: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      district[i].districtInfo![index].districtName.toString(),
+                      style: titleStyle(),
+                    ),
                   ),
                 ),
-              ),
-            );
+                width: _size.width / 2.0);
           },
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2, childAspectRatio: 2),
