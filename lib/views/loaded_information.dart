@@ -45,6 +45,9 @@ class LoadedInformation extends StatelessWidget {
   Widget build(BuildContext context) {
     final _size = MediaQuery.of(context).size;
     return GridView.builder(
+      shrinkWrap: true,
+      scrollDirection: Axis.vertical,
+      physics: const ClampingScrollPhysics(),
       itemCount: information.length,
       padding: const EdgeInsets.only(top: 6.0, bottom: 6.0),
       itemBuilder: (context, index) {

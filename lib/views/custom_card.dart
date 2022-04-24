@@ -67,17 +67,17 @@ class CustomCard extends StatelessWidget {
                       name,
                       style: const TextStyle(
                         fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Thin',
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Siliguri-Medium',
                       ),
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
                       description,
                       style: const TextStyle(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.w500,
-                        fontFamily: 'BalooDa2-Regular',
+                        fontSize: 20.0,
+                        // fontWeight: FontWeight.w400,
+                        fontFamily: 'Siliguri-Regular',
                       ),
                       overflow: TextOverflow.ellipsis,
                     ),

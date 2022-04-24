@@ -40,6 +40,7 @@ dependencies:
   flutter_spinkit: ^5.1.0
   google_fonts: ^2.3.1
   transparent_image: ^2.0.0
+  card_swiper: ^2.0.3
 
 dev_dependencies:
   flutter_test:
@@ -67,6 +68,8 @@ flutter:
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
+  assets:
+    - asset/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -90,22 +93,21 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
-  #
   fonts:
-    - family: ExtraLight
-      fonts:
-        - asset: fonts/ExtraLight.ttf
-    - family: Regular
-      fonts:
-        - asset: fonts/Regular.ttf
-    - family: Thin
-      fonts:
-        - asset: fonts/Thin.ttf
-    - family: BalooDa2-Regular
-      fonts:
-       - asset: fonts/BalooDa2-Regular.ttf
     - family: Siliguri-Regular
       fonts:
         - asset: fonts/Siliguri-Regular.ttf
+    - family: Siliguri-Light
+      fonts:
+        - asset: fonts/Siliguri-Light.ttf
+    - family: Siliguri-Mediam
+      fonts:
+        - asset: fonts/Siliguri-Mediam.ttf
+    - family: Regular
+      fonts:
+        - asset: fonts/Regular.ttf
+    - family: ExtraLight
+      fonts:
+        - asset: fonts/ExtraLight.ttf
     # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

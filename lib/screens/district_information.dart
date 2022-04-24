@@ -1,7 +1,6 @@
-import 'package:bd_vromon/screens/details_screen.dart';
-import 'package:bd_vromon/views/custom_card.dart';
+import '../screens/details_screen.dart';
+import '../views/custom_card.dart';
 
-import '../screens/place_details.dart';
 import 'package:flutter/material.dart';
 
 import '../model/info_model.dart';
@@ -19,16 +18,16 @@ class DistrictInformation extends StatelessWidget {
   final int ii;
   final String disTitle;
 
-  void goToDetailPlaceScreen(
-      BuildContext context, int index, String placeName) {
+  void goToDetailScreen(BuildContext context, int position) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => DetailPlace(
-          information: district,
-          i: i,
-          ii: ii,
-          iii: index,
-          placeName: placeName,
+        builder: (context) => DetailScreen(
+          image:
+              '${district[i].districtInfo![ii].viewablePlaces![position].image}',
+          name:
+              '${district[i].districtInfo![ii].viewablePlaces![position].name}',
+          description:
+              '${district[i].districtInfo![ii].viewablePlaces![position].description}',
         ),
       ),
     );
@@ -48,14 +47,7 @@ class DistrictInformation extends StatelessWidget {
         itemBuilder: (context, position) {
           var result = district[i].districtInfo![ii].viewablePlaces![position];
           return GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DetailScreen(image: '${result.image}'),
-                ),
-              );
-            },
+            onTap: () => goToDetailScreen(context, position),
             child: CustomCard(
               image: '${result.image}',
               name: '${result.name}',

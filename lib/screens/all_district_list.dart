@@ -1,4 +1,4 @@
-import 'package:bd_vromon/views/custom_title_container.dart';
+import '../views/custom_title_container.dart';
 
 import '../screens/district_information.dart';
 
