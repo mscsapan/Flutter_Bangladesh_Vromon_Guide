@@ -12,7 +12,7 @@ class Loading extends StatelessWidget {
         children: const [
           CircularProgressIndicator(color: Colors.green),
           SizedBox(height: 10.0),
-          Text('Loading...')
+          Text('Loading data...')
         ],
       ),
     );

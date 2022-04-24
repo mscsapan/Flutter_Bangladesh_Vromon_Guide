@@ -32,7 +32,7 @@ class AllDistrictList extends StatelessWidget {
 
   TextStyle titleStyle() {
     return const TextStyle(
-      fontSize: 25.0,
+      fontSize: 23.0,
       fontWeight: FontWeight.w400,
       fontFamily: 'Siliguri-Regular',
     );

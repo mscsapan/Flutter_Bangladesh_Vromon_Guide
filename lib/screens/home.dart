@@ -19,57 +19,82 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack, overlays: []);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
   }
 
   @override
   void dispose() {
     super.dispose();
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-        overlays: [SystemUiOverlay.top]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+  }
+
+  Future<bool?> showWarning(BuildContext context) async {
+    return showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) => AlertDialog(
+              title: const Text('Do You Want to Exit..??'),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop(false);
+                    },
+                    child: const Text('Cancel')),
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop(true);
+                    },
+                    child: const Text('Exit')),
+              ],
+            ));
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.grey[300],
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            primary: true,
-            automaticallyImplyLeading: false,
-            backgroundColor: Colors.deepOrange,
-            floating: true,
-            expandedHeight: 240.0,
-            // collapsedHeight: 50.0,
-            pinned: true,
-            elevation: 0.0,
-            centerTitle: true,
-            flexibleSpace: FlexibleSpaceBar(
-              title: const Text('বিভাগ সমূহ'),
-              centerTitle: true,
-              background: CarouselView(),
-              collapseMode: CollapseMode.pin,
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: BlocBuilder<CountryBloc, CountryState>(
-              builder: (context, CountryState state) {
-                if (state is InitialState) {
-                  return const Loading();
-                } else if (state is LoadingState) {
-                  return const Loading();
-                } else if (state is LoadedState) {
-                  return LoadedInformation(information: state.information);
-                } else if (state is ErrorState) {
-                  return Center(child: Text(state.messages.toString()));
-                }
-                return const Text('Nothing Happens...');
-              },
-            ),
-          )
-        ],
+    return WillPopScope(
+      onWillPop: () async {
+        final exitScreen = await showWarning(context);
+        return exitScreen ?? false;
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        backgroundColor: Colors.grey[300],
+        body: BlocBuilder<CountryBloc, CountryState>(
+          builder: (context, CountryState state) {
+            if (state is InitialState) {
+              return const Loading();
+            } else if (state is LoadingState) {
+              return const Loading();
+            } else if (state is LoadedState) {
+              return CustomScrollView(
+                slivers: [
+                  SliverAppBar(
+                    primary: false,
+                    automaticallyImplyLeading: false,
+                    // backgroundColor: Colors.deepOrange,
+                    floating: true,
+                    expandedHeight: 250.0,
+                    pinned: true,
+                    elevation: 0.0,
+                    centerTitle: true,
+                    flexibleSpace: FlexibleSpaceBar(
+                      title: const Text('বাংলাদেশ ভ্রমন'),
+                      centerTitle: true,
+                      background: CarouselView(),
+                      collapseMode: CollapseMode.pin,
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: LoadedInformation(information: state.information),
+                  )
+                ],
+              );
+            } else if (state is ErrorState) {
+              return Center(child: Text(state.messages.toString()));
+            }
+            return const Text('Nothing Happens...');
+          },
+        ),
       ),
     );
   }
