@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 
+import '../screens/browsing_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,28 +16,38 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
-  late Animation<double> _animation;
+class _SplashScreenState extends State<SplashScreen> {
+  /* late AnimationController _animationController;
+  late Animation<double> _animation;*/
 
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 3), () {
-      return Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => BlocProvider(
-            create: (context) => CountryBloc()
-              ..add(
-                GetAllInformationEvent(),
-              ),
-            child: const Home(),
-          ),
-        ),
-      );
-    });
+    Future.delayed(
+      const Duration(seconds: 5),
+      () => navigateScreen(),
+    );
+    // myAnimation();
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky,
+        overlays: []);
+  }
 
+  navigateScreen() {
+    return Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => BlocProvider(
+          create: (context) => CountryBloc()
+            ..add(
+              GetAllInformationEvent(),
+            ),
+          child: BrowsScreen(),
+        ),
+      ),
+    );
+  }
+
+/*  void myAnimation() {
     _animationController =
         AnimationController(vsync: this, duration: const Duration(seconds: 2));
     _animation = Tween<double>(begin: 0.0, end: math.pi * 2)
@@ -50,15 +61,12 @@ class _SplashScreenState extends State<SplashScreen>
       }
     });
     _animationController.repeat();
-
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky,
-        overlays: []);
-  }
+  }*/
 
   @override
   void dispose() {
     super.dispose();
-    _animationController.dispose();
+    // _animationController.dispose();
   }
 
   final String bangladesh = 'asset/bd-earth.png';
@@ -88,10 +96,7 @@ class _SplashScreenState extends State<SplashScreen>
                 // color: Colors.green,
                 shape: BoxShape.circle,
               ),
-              child: Transform.rotate(
-                angle: _animation.value,
-                child: Image.asset(bangladesh),
-              ),
+              child: Image.asset(bangladesh),
             ),
             const SpinKitFadingCircle(color: Colors.grey),
             SizedBox(height: _size.height * 0.2),

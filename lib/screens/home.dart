@@ -1,3 +1,5 @@
+import 'package:bd_vromon/views/exit_views.dart';
+
 import '../views/slider_view.dart';
 import 'package:flutter/services.dart';
 
@@ -28,34 +30,10 @@ class _HomeState extends State<Home> {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
   }
 
-  Future<bool?> showWarning(BuildContext context) async {
-    return showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) => AlertDialog(
-              title: const Text('Do You Want to Exit..??'),
-              actions: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop(false);
-                    },
-                    child: const Text('Cancel')),
-                TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop(true);
-                    },
-                    child: const Text('Exit')),
-              ],
-            ));
-  }
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async {
-        final exitScreen = await showWarning(context);
-        return exitScreen ?? false;
-      },
+      onWillPop: () => getExitNotification(),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.grey[300],
