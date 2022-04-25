@@ -1,4 +1,5 @@
 import 'package:bd_vromon/views/exit_views.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../views/slider_view.dart';
 import 'package:flutter/services.dart';
@@ -30,10 +31,28 @@ class _HomeState extends State<Home> {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
   }
 
+  DateTime _currentTime = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () => getExitNotification(),
+      onWillPop: () async {
+        final differenceTime = DateTime.now().difference(_currentTime);
+        final exitApp = differenceTime >= const Duration(seconds: 2);
+        _currentTime = DateTime.now();
+        if (exitApp) {
+          Fluttertoast.showToast(
+            backgroundColor: Colors.grey,
+            msg: 'Press back again to exit',
+            textColor: Colors.black54,
+            fontSize: 18.0,
+          );
+          return false;
+        } else {
+          Fluttertoast.cancel();
+          return true;
+        }
+      },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.grey[300],

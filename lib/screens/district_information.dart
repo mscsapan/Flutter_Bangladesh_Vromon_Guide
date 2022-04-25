@@ -1,4 +1,7 @@
-import '../screens/details_screen.dart';
+import 'package:animations/animations.dart';
+
+import '../screens/place_details.dart';
+
 import '../views/custom_card.dart';
 
 import 'package:flutter/material.dart';
@@ -21,13 +24,15 @@ class DistrictInformation extends StatelessWidget {
   void goToDetailScreen(BuildContext context, int position) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => DetailScreen(
+        builder: (context) => PlaceDetailsScreen(
           image:
               '${district[i].districtInfo![ii].viewablePlaces![position].image}',
           name:
               '${district[i].districtInfo![ii].viewablePlaces![position].name}',
           description:
               '${district[i].districtInfo![ii].viewablePlaces![position].description}',
+          howToGo:
+              '${district[i].districtInfo![ii].viewablePlaces![position].howToGo}',
         ),
       ),
     );
@@ -46,9 +51,18 @@ class DistrictInformation extends StatelessWidget {
         itemCount: district[i].districtInfo![ii].viewablePlaces!.length,
         itemBuilder: (context, position) {
           var result = district[i].districtInfo![ii].viewablePlaces![position];
-          return GestureDetector(
-            onTap: () => goToDetailScreen(context, position),
-            child: CustomCard(
+          return OpenContainer(
+            transitionDuration: const Duration(milliseconds: 1500),
+            transitionType: ContainerTransitionType.fadeThrough,
+            openColor: Colors.transparent,
+            closedColor: Colors.transparent,
+            openBuilder: (context, action) => PlaceDetailsScreen(
+              image: '${result.image}',
+              name: '${result.name}',
+              description: '${result.description}',
+              howToGo: '${result.howToGo}',
+            ),
+            closedBuilder: (context, action) => CustomCard(
               image: '${result.image}',
               name: '${result.name}',
               description: '${result.description}',
